@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react'
 import './App.css';
+import './components/Header'
+import './components/Footer'
+import Layout from './components/Layout'
+import axios from 'axios'
 
 function App() {
+
+  const [counter, setCounter] = useState(0)
+  const [date, setData] = useState('')
+
+  useEffect(() => {
+    axios
+      .get('https://newapi.citiboard.se/cb/annonslista')
+      .then(respons => {
+        console.log(response)
+      })
+  })
+
+  const add = (props) => { // function
+    setCounter(prevState => prevState + props)
+  }
+
+  const minus = () => {
+    setCounter(prevState => prevState - 1)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Layout>
+      <div className="App">
+
+        <h2>Counter:</h2>
+        <h4>{counter}</h4>
+        <button onClick={(() => add(1))}>Add</button>
+        <button onClick={(() => minus())}>Subract</button>
+
     </div>
+    </Layout>
   );
 }
 

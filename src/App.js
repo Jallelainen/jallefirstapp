@@ -10,13 +10,21 @@ function App() {
   const [counter, setCounter] = useState(0)
   const [date, setData] = useState('')
 
-  useEffect(() => {
+  constructor(props) {
+    super(props);
+    this.state = { value: 0 };
+  }
+  myChangeHandler = (event) => {
+    this.setState({value: event.target.value});
+  }
+
+  /*useEffect(() => {
     axios
       .get('https://newapi.citiboard.se/cb/annonslista')
       .then(respons => {
         console.log(response)
       })
-  })
+  })*/
 
   const add = (props) => { // function
     setCounter(prevState => prevState + props)
@@ -32,8 +40,13 @@ function App() {
 
         <h2>Counter:</h2>
         <h4>{counter}</h4>
-        <button onClick={(() => add(1))}>Add</button>
-        <button onClick={(() => minus())}>Subract</button>
+        <br/>
+        <form>
+          <label>Value to add or subtract</label>
+          <input type="text" onChange={this.myChangeHandler}/>
+          <button type="submit" onClick={(() => add(this))}>Add</button>
+          <button type="submit" onClick={(() => minus(this))}>Subract</button>
+        </form>
 
     </div>
     </Layout>
